@@ -1,0 +1,49 @@
+{
+    "posts": [
+      {
+        "title": "first post",
+        "body": "this is the post body",
+        "image": "https://media.istockphoto.com/photos/numbers-picture-id182372421",
+        "owner": "Ali"
+      },
+      {
+        "title": "second post",
+        "body": "this is the post body 2",
+        "image": "https://media.istockphoto.com/photos/numbers-picture-id182372421",
+        "owner": "Mohammad"
+      },
+      {
+        "title": "third post",
+        "body": "this is the post body 3",
+        "image": "https://media.istockphoto.com/photos/numbers-picture-id182372421",
+        "owner": "Sami"
+      }
+    ],
+    "books":[
+        {
+            "title": "Magic Spider",
+            "releaseYear": 2009,
+            "numberOfCopies": 100,
+            "image":"https://scrc.siu.edu/_common/images/new-images/rb3.jpg"
+          },
+          {
+            "title": "Sleeping Cat",
+            "releaseYear": 2020,
+            "numberOfCopies": 20,
+            "image":"https://scrc.siu.edu/_common/images/new-images/rb3.jpg"
+          },
+          {
+            "title": "Dancing Dog",
+            "releaseYear": 1999,
+            "numberOfCopies": 220,
+            "image":"https://scrc.siu.edu/_common/images/new-images/rb3.jpg"
+          },
+          {
+            "title": "Orange Mouse",
+            "releaseYear": 2021,
+            "numberOfCopies": 10000,
+            "image":"https://scrc.siu.edu/_common/images/new-images/rb3.jpg"
+          }
+    ]
+   
+  }
