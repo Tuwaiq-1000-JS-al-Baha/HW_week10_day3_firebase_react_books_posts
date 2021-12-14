@@ -8,6 +8,9 @@ function NavbarItem() {
         <Link to="/" className="navbar-brand">
           Posts
         </Link>
+        <Link className="navbar-brand" to="/book">
+          Books
+        </Link>
         <Navbar.Toggle />
         <Navbar.Collapse>
           <Nav className="me-auto">
@@ -16,6 +19,9 @@ function NavbarItem() {
             </Link>
             <Link to="/add-post" className="nav-link">
               Add Post
+            </Link>
+            <Link className="nav-link" to="/add-book">
+              Add Book
             </Link>
           </Nav>
         </Navbar.Collapse>

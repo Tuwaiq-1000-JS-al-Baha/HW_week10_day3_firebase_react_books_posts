@@ -1,0 +1,29 @@
+{
+    "posts": [
+      {
+        "title": "first post",
+        "description": "this is the post body",
+        "image": "https://media.istockphoto.com/photos/numbers-picture-id182372421",
+        "author": "Ali"
+      },
+      {
+        "title": "first post",
+        "description": "this is the post body",
+        "image": "https://media.istockphoto.com/photos/numbers-picture-id182372421",
+        "author": "Ali"
+      },
+      {
+        "title": "first post",
+        "description": "this is the post body",
+        "image": "https://media.istockphoto.com/photos/numbers-picture-id182372421",
+        "author": "Ali"
+      },
+      {
+        "title": "first post",
+        "description": "this is the post body",
+        "image": "https://media.istockphoto.com/photos/numbers-picture-id182372421",
+        "author": "Ali"
+      }
+      
+    ]
+  }
