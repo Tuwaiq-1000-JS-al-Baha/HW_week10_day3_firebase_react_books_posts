@@ -7,7 +7,7 @@ function Posts() {
   const { posts, deletePost } = useContext(PostsContext)
   const [show, setShow] = useState(false)
   return (
-    <>
+    <div>
       <h1>Posts</h1>
       <Row cols={4}>
         {posts.map(post => (
@@ -34,7 +34,7 @@ function Posts() {
           </Col>
         ))}
       </Row>
-    </>
+    </div>
   )
 }
 
