@@ -1,5 +1,5 @@
-import { Container, Nav, Navbar } from "react-bootstrap"
-import { Link } from "react-router-dom"
+import { Container, Nav, Navbar } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 function NavbarItem() {
   return (
@@ -17,11 +17,17 @@ function NavbarItem() {
             <Link to="/add-post" className="nav-link">
               Add Post
             </Link>
+            <Link to="/books" className="nav-link">
+              books
+            </Link>
+            <Link to="/add-book" className="nav-link">
+              Add Book
+            </Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>
-  )
+  );
 }
 
-export default NavbarItem
+export default NavbarItem;
