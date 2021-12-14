@@ -1,3 +1,4 @@
+import { NavDropdown } from "react-bootstrap"
 import { Container, Nav, Navbar } from "react-bootstrap"
 import { Link } from "react-router-dom"
 
@@ -6,17 +7,30 @@ function NavbarItem() {
     <Navbar bg="light" expand="lg">
       <Container>
         <Link to="/" className="navbar-brand">
-          Posts
+          Home
         </Link>
-        <Navbar.Toggle />
-        <Navbar.Collapse>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Link to="/" className="nav-link">
+            <Link to="/" className="navbar-brand">
               Posts
             </Link>
-            <Link to="/add-post" className="nav-link">
-              Add Post
+            <Link to="/book" className="navbar-brand">
+              Books
             </Link>
+            <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+              <NavDropdown.Item>
+                <Link to="/add-book" className="text-decoration-none">
+                  Add Book
+                </Link>
+              </NavDropdown.Item>
+
+              <NavDropdown.Item>
+                <Link to="/add-post" className="text-decoration-none">
+                  Add Post
+                </Link>
+              </NavDropdown.Item>
+            </NavDropdown>
           </Nav>
         </Navbar.Collapse>
       </Container>
