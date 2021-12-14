@@ -1,0 +1,22 @@
+{
+  "posts": [
+    {
+      "title": "first post ",
+      "body": "first post 1",
+      "image": "https://p0.pikist.com/photos/895/236/clouds-sky-sun-rays-blue-white-clouds-summer-day-clouds-form.jpg",
+      "owner": "Ali"
+    },
+    {
+      "title": "secod post ",
+      "body": "first post 2",
+      "image": "https://p0.pikist.com/photos/895/236/clouds-sky-sun-rays-blue-white-clouds-summer-day-clouds-form.jpg",
+      "owner": "Abdullah"
+    },
+    {
+      "title": "therid post ",
+      "body": "first post 3",
+      "image": "https://p0.pikist.com/photos/895/236/clouds-sky-sun-rays-blue-white-clouds-summer-day-clouds-form.jpg",
+      "owner": "reem"
+    }
+  ]
+}
