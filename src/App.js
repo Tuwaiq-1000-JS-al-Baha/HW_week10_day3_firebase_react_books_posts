@@ -6,9 +6,12 @@ import AddPost from "./pages/AddPost"
 import Posts from "./pages/Posts"
 import firebase from "./utils/firebase"
 import PostsContext from "./utils/PostsContext"
+import AddBook from "./pages/AddBook"
+import Books from "./pages/Books"
 
 function App() {
   const [posts, setPosts] = useState([])
+  const [books, setBooks] = useState([])
   const navigate = useNavigate()
 
   const getPosts = async () => {
@@ -22,8 +25,19 @@ function App() {
     setPosts(postsArray)
   }
 
+  const getBooks = async () => {
+    const booksRef = await firebase.database().ref("books").once("value")
+    const books = booksRef.val()
+    const booksArray = []
+    for (const key in books) {
+      booksArray.push({ ...books[key], id: key })
+    }
+
+    setBooks(booksArray)
+  }
   useEffect(() => {
     getPosts()
+    getBooks()
   }, [])
 
   const addPost = async e => {
@@ -74,8 +88,36 @@ function App() {
       toast.error(error.code)
     }
   }
+  //----------------books---------//
+  const addBook = async e => {
+    e.preventDefault()
+    try {
+      const form = e.target
+      const bookBody = {
+        title: form.elements.title.value,
+        discription: form.elements.discription.value,
+        image: form.elements.image.value,
+        auther: form.elements.auther.value,
+      }
 
-  const store = { posts, addPost, deletePost, editPost }
+      await firebase.database().ref("/books").push(bookBody)
+      toast.success("book added")
+      getBooks()
+      navigate("/")
+    } catch (error) {
+      toast.error(error.code)
+    }
+  }
+  const deleteBook = async bookId => {
+    try {
+      await firebase.database().ref(`books/${bookId}`).remove()
+      toast.success("book deleted")
+      getBooks()
+    } catch (error) {
+      toast.error(error.code)
+    }
+  }
+  const store = { posts, addPost, deletePost, editPost, books, addBook, deleteBook }
 
   return (
     <PostsContext.Provider value={store}>
@@ -84,6 +126,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Posts />} />
         <Route path="/add-post" element={<AddPost />} />
+
+        <Route path="/books" element={<Books />} />
+        <Route path="/add-book" element={<AddBook />} />
       </Routes>
     </PostsContext.Provider>
   )
