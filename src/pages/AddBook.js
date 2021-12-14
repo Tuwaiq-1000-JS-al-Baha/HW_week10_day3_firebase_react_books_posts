@@ -2,12 +2,12 @@ import { useContext } from "react"
 import { Form, Col, Row, Button } from "react-bootstrap"
 import PostsContext from "../utils/PostsContext"
 
-function AddPost() {
-  const { addPost } = useContext(PostsContext)
+function AddBook() {
+  const { addBook } = useContext(PostsContext)
   return (
     <div className="ms-4">
-      <h1>Add Post</h1>
-      <Form className="mt-5" onSubmit={addPost}>
+      <h1>Add Book</h1>
+      <Form className="mt-5" onSubmit={addBook}>
         <Form.Group as={Row} className="mb-3">
           <Form.Label column md="2">
             Title
@@ -18,10 +18,10 @@ function AddPost() {
         </Form.Group>
         <Form.Group as={Row} className="mb-3">
           <Form.Label column md="2">
-            Body
+          ReleaseYear
           </Form.Label>
           <Col md="6">
-            <Form.Control as="textarea" name="body" rows={3} required />
+            <Form.Control type="number" name="releaseYear" rows={3} required />
           </Col>
         </Form.Group>
         <Form.Group as={Row} className="mb-3">
@@ -34,15 +34,15 @@ function AddPost() {
         </Form.Group>
         <Form.Group as={Row} className="mb-3">
           <Form.Label column md="2">
-            Owner
+          number Of Copies
           </Form.Label>
           <Col md="6">
-            <Form.Control name="owner" type="text" required />
+            <Form.Control name="numberOfCopies" type="number" required />
           </Col>
         </Form.Group>
         <Form.Group as={Row} className="my-5">
           <Col md={{ span: 10, offset: 2 }}>
-            <Button type="submit">Add Post</Button>
+            <Button type="submit">Add Book</Button>
           </Col>
         </Form.Group>
       </Form>
@@ -50,4 +50,4 @@ function AddPost() {
   )
 }
 
-export default AddPost
+export default AddBook
