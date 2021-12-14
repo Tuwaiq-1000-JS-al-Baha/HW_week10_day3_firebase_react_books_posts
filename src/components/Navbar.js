@@ -11,11 +11,17 @@ function NavbarItem() {
         <Navbar.Toggle />
         <Navbar.Collapse>
           <Nav className="me-auto">
-            <Link to="/" className="nav-link">
+            <Link to="/posts" className="nav-link">
               Posts
             </Link>
             <Link to="/add-post" className="nav-link">
               Add Post
+            </Link>
+            <Link to="/books" className="nav-link">
+              Books
+            </Link>
+            <Link to="/add-book" className="nav-link">
+              Add Book
             </Link>
           </Nav>
         </Navbar.Collapse>
