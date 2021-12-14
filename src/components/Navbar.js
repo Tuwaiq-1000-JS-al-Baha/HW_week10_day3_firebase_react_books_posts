@@ -6,7 +6,7 @@ function NavbarItem() {
     <Navbar bg="light" expand="lg">
       <Container>
         <Link to="/" className="navbar-brand">
-          Posts
+         Home
         </Link>
         <Navbar.Toggle />
         <Navbar.Collapse>
@@ -16,6 +16,12 @@ function NavbarItem() {
             </Link>
             <Link to="/add-post" className="nav-link">
               Add Post
+            </Link>
+            <Link to="/books" className="nav-link">
+            Books
+            </Link>
+            <Link to="/add-books" className="nav-link">
+            Add Books
             </Link>
           </Nav>
         </Navbar.Collapse>
