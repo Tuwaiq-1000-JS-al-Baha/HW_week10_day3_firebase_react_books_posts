@@ -1,6 +1,6 @@
 import { useContext } from "react"
 import { Form, Col, Row, Button } from "react-bootstrap"
-import PostsContext from "../utils/PostsContext"
+import PostsContext from "../utils/BooksContext"
 
 function AddPost() {
   const { addPost } = useContext(PostsContext)
