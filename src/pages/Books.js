@@ -1,7 +1,7 @@
 import { useContext, useState } from "react"
 import PostsContext from "../utils/PostsContext"
 import { Button, Card, Col, Row } from "react-bootstrap"
-import PostEditModal from "../components/PostEditModal"
+import BookEditModal from "../components/BookEditModal"
 
 function Books() {
   const { books, deleteBook } = useContext(PostsContext)
@@ -30,7 +30,7 @@ function Books() {
                 </Button>
               </Card.Footer>
             </Card>
-            <PostEditModal show={show} setShow={setShow} book={book} />
+            <BookEditModal show={show} setShow={setShow} book={book} />
           </Col>
         ))}
       </Row>

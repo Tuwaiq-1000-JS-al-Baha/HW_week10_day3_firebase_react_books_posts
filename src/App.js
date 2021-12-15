@@ -123,7 +123,26 @@ function App() {
     }
   }
 
-  const store = { posts, addPost, deletePost, editPost, books, addBook, deleteBook }
+  const editBook = async (e, bookId) => {
+    e.preventDefault()
+    try {
+      const form = e.target
+      const bookBody = {
+        title: form.elements.title.value,
+        discription: form.elements.discription.value,
+        image: form.elements.image.value,
+        auther: form.elements.auther.value,
+      }
+      console.log(bookBody)
+      await firebase.database().ref(`posts/${bookId}`).update(bookBody)
+      toast.success("book is updated")
+      getBooks()
+    } catch (error) {
+      toast.error(error.code)
+    }
+  }
+
+  const store = { posts, addPost, deletePost, editPost, books, addBook, deleteBook, editBook }
 
   return (
     <PostsContext.Provider value={store}>
@@ -131,7 +150,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Posts />} />
-        <Route path="/" element={<Books />} />
+        <Route path="/books" element={<Books />} />
         <Route path="/add-book" element={<AddBook />} />
         <Route path="/add-post" element={<AddPost />} />
 

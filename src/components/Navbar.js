@@ -17,7 +17,7 @@ function NavbarItem() {
             <Link to="/add-post" className="nav-link">
               Add Post
             </Link>
-            <Link to="/" className="nav-link">
+            <Link to="/books" className="nav-link">
               books
             </Link>
             <Link to="/add-book" className="nav-link">
