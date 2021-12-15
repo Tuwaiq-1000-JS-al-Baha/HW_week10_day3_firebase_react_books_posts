@@ -99,7 +99,7 @@ function App() {
       const bookBody = {
         title: form.elements.title.value,
         image: form.elements.image.value,
-        description: form.description.body.value,
+        description: form.elements.description.value,
         auther: form.elements.auther.value,
       }
       await firebase.database().ref("/books").push(bookBody)
@@ -119,7 +119,7 @@ function App() {
       const bookBody = {
         title: form.elements.title.value,
         image: form.elements.image.value,
-        description: form.description.body.value,
+        description: form.elements.description.value,
         auther: form.elements.auther.value,
       }
      
