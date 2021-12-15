@@ -3,12 +3,16 @@ import { toast, ToastContainer } from "react-toastify"
 import { Route, Routes, useNavigate } from "react-router-dom"
 import Navbar from "./components/Navbar"
 import AddPost from "./pages/AddPost"
+import AddBook from "./pages/AddBook"
 import Posts from "./pages/Posts"
+import Books from "./pages/Books"
 import firebase from "./utils/firebase"
 import PostsContext from "./utils/PostsContext"
 
+
 function App() {
   const [posts, setPosts] = useState([])
+  const[books, setBooks] = useState([])
   const navigate = useNavigate()
 
   const getPosts = async () => {
@@ -22,8 +26,20 @@ function App() {
     setPosts(postsArray)
   }
 
+  const getBooks = async () => {
+    const booksRef = await firebase.database().ref("books").once("value")
+    const books = booksRef.val()
+    const booksArray = []
+    for (const key in books) {
+      booksArray.push({ ...books[key], id: key })
+    }
+
+    setBooks(booksArray)
+  }
+
   useEffect(() => {
     getPosts()
+    getBooks()
   }, [])
 
   const addPost = async e => {
@@ -45,6 +61,38 @@ function App() {
       toast.error(error.code)
     }
   }
+
+
+  const addBook = async e => {
+    e.preventDefault()
+    try {
+      const form = e.target
+      const bookBody = {
+        title: form.elements.title.value,
+        discription: form.elements.discription.value,
+        image: form.elements.image.value,
+        auther: form.elements.auther.value,
+      }
+
+      await firebase.database().ref("/books").push(bookBody)
+      toast.success("book added")
+      getBooks()
+      navigate("/")
+    } catch (error) {
+      toast.error(error.code)
+    }
+  }
+
+  const deleteBook = async bookId => {
+    try {
+      await firebase.database().ref(`books/${bookId}`).remove()
+      toast.success("book deleted")
+      getBooks()
+    } catch (error) {
+      toast.error(error.code)
+    }
+  }
+
 
   const deletePost = async postId => {
     try {
@@ -75,7 +123,7 @@ function App() {
     }
   }
 
-  const store = { posts, addPost, deletePost, editPost }
+  const store = { posts, addPost, deletePost, editPost, books, addBook, deleteBook }
 
   return (
     <PostsContext.Provider value={store}>
@@ -83,7 +131,10 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Posts />} />
+        <Route path="/" element={<Books />} />
+        <Route path="/add-book" element={<AddBook />} />
         <Route path="/add-post" element={<AddPost />} />
+
       </Routes>
     </PostsContext.Provider>
   )
