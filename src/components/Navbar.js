@@ -17,6 +17,13 @@ function NavbarItem() {
             <Link to="/add-post" className="nav-link">
               Add Post
             </Link>
+
+            <Link to="/Books" className="nav-link">
+             Books
+            </Link>
+            <Link to="/add-book" className="nav-link">
+              Add Book
+            </Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
