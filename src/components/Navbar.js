@@ -6,16 +6,16 @@ function NavbarItem() {
     <Navbar bg="light" expand="lg">
       <Container>
         <Link to="/" className="navbar-brand">
-          Posts
+        Books
         </Link>
         <Navbar.Toggle />
         <Navbar.Collapse>
           <Nav className="me-auto">
             <Link to="/" className="nav-link">
-              Posts
+            Home
             </Link>
-            <Link to="/add-post" className="nav-link">
-              Add Post
+            <Link to="/add-book" className="nav-link">
+              Add Book
             </Link>
           </Nav>
         </Navbar.Collapse>
