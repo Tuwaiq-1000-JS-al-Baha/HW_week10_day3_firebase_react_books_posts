@@ -6,9 +6,12 @@ import AddPost from "./pages/AddPost"
 import Posts from "./pages/Posts"
 import firebase from "./utils/firebase"
 import PostsContext from "./utils/PostsContext"
+import Book from "./pages/Books"
+import AddBook from "./pages/AddBook"
 
 function App() {
   const [posts, setPosts] = useState([])
+  const [books, setBooks] = useState([])
   const navigate = useNavigate()
 
   const getPosts = async () => {
@@ -18,12 +21,23 @@ function App() {
     for (const key in posts) {
       postsArray.push({ ...posts[key], id: key })
     }
-
     setPosts(postsArray)
+  }
+
+  const getBooks = async () => {
+    const booksRef = await firebase.database().ref("books").once("value")
+    const books = booksRef.val()
+    const booksArray = []
+    for (const key in books) {
+      booksArray.push({ ...books[key], id: key })
+    }
+
+    setBooks(booksArray)
   }
 
   useEffect(() => {
     getPosts()
+    getBooks()
   }, [])
 
   const addPost = async e => {
@@ -36,7 +50,6 @@ function App() {
         image: form.elements.image.value,
         owner: form.elements.owner.value,
       }
-
       await firebase.database().ref("/posts").push(postBody)
       toast.success("post added")
       getPosts()
@@ -45,7 +58,27 @@ function App() {
       toast.error(error.code)
     }
   }
+  const addBook = async e => {
+    e.preventDefault()
+    try {
+      const form = e.target
 
+      const bookBody = {
+        title: form.elements.title.value,
+        body: form.elements.body.value,
+        image: form.elements.image.value,
+        owner: form.elements.owner.value,
+      }
+
+      await firebase.database().ref("books").push(bookBody)
+      console.log(bookBody)
+      toast.success("book added")
+      getBooks()
+      navigate("/book")
+    } catch (error) {
+      toast.error(error.message)
+    }
+  }
   const deletePost = async postId => {
     try {
       await firebase.database().ref(`posts/${postId}`).remove()
@@ -55,7 +88,6 @@ function App() {
       toast.error(error.code)
     }
   }
-
   const editPost = async (e, postId) => {
     e.preventDefault()
     try {
@@ -76,6 +108,7 @@ function App() {
   }
 
   const store = { posts, addPost, deletePost, editPost }
+  const store = { posts, addPost, deletePost, editPost, books, addBook }
 
   return (
     <PostsContext.Provider value={store}>
@@ -84,9 +117,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Posts />} />
         <Route path="/add-post" element={<AddPost />} />
+        <Route path="/book" element={<Book />} />
+        <Route path="/add-book" element={<AddBook />} />
       </Routes>
     </PostsContext.Provider>
   )
 }
-
 export default App
