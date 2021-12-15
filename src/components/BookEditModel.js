@@ -26,14 +26,14 @@ function PostEditModal(props) {
           </Form.Group>
           <Form.Group as={Row} className="mb-3">
             <Form.Label column md="2">
-              Body
+              discription
             </Form.Label>
             <Col md="6">
               <Form.Control
                 as="textarea"
-                name="body"
+                name="discription"
                 rows={3}
-                defaultValue={book.body}
+                defaultValue={book.discription}
               />
             </Col>
           </Form.Group>
@@ -47,13 +47,13 @@ function PostEditModal(props) {
           </Form.Group>
           <Form.Group as={Row} className="mb-3">
             <Form.Label column md="2">
-              Owner
+              author
             </Form.Label>
             <Col md="6">
               <Form.Control
-                name="owner"
+                name="author"
                 type="text"
-                defaultValue={book.owner}
+                defaultValue={book.author}
               />
             </Col>
           </Form.Group>
