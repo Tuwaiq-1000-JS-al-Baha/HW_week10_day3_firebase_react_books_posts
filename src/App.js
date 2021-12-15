@@ -6,9 +6,12 @@ import AddPost from "./pages/AddPost"
 import Posts from "./pages/Posts"
 import firebase from "./utils/firebase"
 import PostsContext from "./utils/PostsContext"
+import Books from "./pages/Books"
+import AddBook from "./pages/AddBook"
 
 function App() {
   const [posts, setPosts] = useState([])
+  const [books, setBooks] = useState([])
   const navigate = useNavigate()
 
   const getPosts = async () => {
@@ -21,9 +24,20 @@ function App() {
 
     setPosts(postsArray)
   }
+  const getBooks = async () => {
+    const booksRef = await firebase.database().ref("books").once("value")
+    const books = booksRef.val()
+    const booksArry = []
+    for (const key in books) {
+      booksArry.push({ ...books[key], id: key })
+    }
+    // console.log(booksArry)
+    setBooks(booksArry)
+  }
 
   useEffect(() => {
     getPosts()
+    getBooks()
   }, [])
 
   const addPost = async e => {
@@ -74,16 +88,68 @@ function App() {
       toast.error(error.code)
     }
   }
+  ////////////////////////////////////////////Book/////////////////////////////////////////////////////
+  const addBook = async e => {
+    e.preventDefault()
+    try {
+      const form = e.target
+      const bookBody = {
+        title: form.elements.title.value,
+        description: form.elements.description.value,
+        image: form.elements.image.value,
+        auther: form.elements.auther.value,
+      }
 
-  const store = { posts, addPost, deletePost, editPost }
+      await firebase.database().ref("/books").push(bookBody)
+      toast.success("book added")
+      getBooks()
+      navigate("/book")
+    } catch (error) {
+      toast.error(error.code)
+    }
+  }
+
+  const deleteBook = async bookId => {
+    try {
+      await firebase.database().ref(`books/${bookId}`).remove()
+      toast.success("book deleted")
+      getBooks()
+    } catch (error) {
+      toast.error(error.code)
+    }
+  }
+
+  const editBook = async (e, bookId) => {
+    e.preventDefault()
+    try {
+      const form = e.target
+      const bookBody = {
+        title: form.elements.title.value,
+        description: form.elements.description.value,
+        image: form.elements.image.value,
+        auther: form.elements.auther.value,
+      }
+      console.log(bookBody)
+      await firebase.database().ref(`books/${bookId}`).update(bookBody)
+      toast.success("book is updated")
+      getBooks()
+    } catch (error) {
+      toast.error(error.code)
+    }
+  }
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+
+  const store = { posts, addPost, deletePost, editPost, books, getBooks, addBook, deleteBook, editBook }
 
   return (
     <PostsContext.Provider value={store}>
       <ToastContainer />
       <Navbar />
       <Routes>
-        <Route path="/" element={<Posts />} />
+        <Route path="/post" element={<Posts />} />
         <Route path="/add-post" element={<AddPost />} />
+        <Route path="/book" element={<Books />} />
+        <Route path="/add-book" element={<AddBook />} />
       </Routes>
     </PostsContext.Provider>
   )
