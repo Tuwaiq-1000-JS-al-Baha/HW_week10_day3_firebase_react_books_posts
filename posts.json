@@ -1,0 +1,22 @@
+{
+  "posts": [
+    {
+      "title": "first post",
+      "body": "this is the post body",
+      "image": "https://media.istockphoto.com/photos/numbers-picture-id182372421",
+      "owner": "Ali"
+    },
+    {
+      "title": "second post",
+      "body": "this is the post body 2",
+      "image": "https://media.istockphoto.com/photos/numbers-picture-id182372421",
+      "owner": "Mohammad"
+    },
+    {
+      "title": "third post",
+      "body": "this is the post body 3",
+      "image": "https://media.istockphoto.com/photos/numbers-picture-id182372421",
+      "owner": "Sami"
+    }
+  ]
+}
