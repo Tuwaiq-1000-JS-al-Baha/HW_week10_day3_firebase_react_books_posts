@@ -1,0 +1,9 @@
+{
+    "books": [
+      {
+        "title": "first post",
+        "body": "this is the post body",
+        "image": "https://media.istockphoto.com/photos/numbers-picture-id182372421",
+        "owner": "Ali"
+      }
+    ]}

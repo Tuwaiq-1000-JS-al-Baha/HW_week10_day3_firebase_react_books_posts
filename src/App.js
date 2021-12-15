@@ -107,7 +107,7 @@ function App() {
     }
   }
 
-  const store = { posts, addPost, deletePost, editPost }
+  
   const store = { posts, addPost, deletePost, editPost, books, addBook }
 
   return (
