@@ -2,16 +2,15 @@ import { useContext } from "react"
 import { Button, Col, Form, Modal, Row } from "react-bootstrap"
 import PostsContext from "../utils/PostsContext"
 
-
-function PostEditModal(props) {
-  const { editPost } = useContext(PostsContext)
-  const { show, setShow, post } = props
+function BookEditModal(props) {
+  const { editBook } = useContext(PostsContext)
+  const { show, setShow, book } = props
 
   return (
     <Modal show={show} onHide={() => setShow(false)}>
-      <Form className="mt-5" onSubmit={e => editPost(e, post.id)}>
+      <Form className="mt-5" onSubmit={e => editBook(e, book)}>
         <Modal.Header closeButton>
-          <Modal.Title>Edit Post</Modal.Title>
+          <Modal.Title>Edit Book</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form.Group as={Row} className="mb-3">
@@ -19,15 +18,15 @@ function PostEditModal(props) {
               Title
             </Form.Label>
             <Col md="6">
-              <Form.Control name="title" type="text" defaultValue={post.title} />
+              <Form.Control name="title" type="text" defaultValue={book.title} />
             </Col>
           </Form.Group>
           <Form.Group as={Row} className="mb-3">
             <Form.Label column md="2">
-              Body
+              Description
             </Form.Label>
             <Col md="6">
-              <Form.Control as="textarea" name="body" rows={3} defaultValue={post.body} />
+              <Form.Control as="textarea" name="description" rows={3} defaultValue={book.description} />
             </Col>
           </Form.Group>
           <Form.Group as={Row} className="mb-3">
@@ -35,15 +34,15 @@ function PostEditModal(props) {
               Image
             </Form.Label>
             <Col md="6">
-              <Form.Control type="url" name="image" defaultValue={post.image} />
+              <Form.Control type="file" accept="image/png" name="image" />
             </Col>
           </Form.Group>
           <Form.Group as={Row} className="mb-3">
             <Form.Label column md="2">
-              Owner
+              author
             </Form.Label>
             <Col md="6">
-              <Form.Control name="owner" type="text" defaultValue={post.owner} />
+              <Form.Control name="author" type="text" defaultValue={book.author} />
             </Col>
           </Form.Group>
         </Modal.Body>
@@ -52,12 +51,11 @@ function PostEditModal(props) {
             Close
           </Button>
           <Button variant="success" type="submit" onClick={() => setShow(false)}>
-            Edit Post
+            Edit book
           </Button>
         </Modal.Footer>
       </Form>
     </Modal>
   )
 }
-
-export default PostEditModal
+export default BookEditModal

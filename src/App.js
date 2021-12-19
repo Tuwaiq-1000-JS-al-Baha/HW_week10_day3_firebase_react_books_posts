@@ -15,6 +15,8 @@ function App() {
 
   const navigate = useNavigate()
 
+  // ------------GETpost------
+
   const getPosts = async () => {
     const postsRef = await firebase.database().ref("posts").once("value")
     const posts = postsRef.val()
@@ -40,6 +42,7 @@ function App() {
     getPosts()
     getBooks()
   }, [])
+  // -------------Add Post------------
 
   const addPost = async e => {
     e.preventDefault()
@@ -60,6 +63,7 @@ function App() {
       toast.error(error.code)
     }
   }
+  // -----------Delete POST--------
 
   const deletePost = async postId => {
     try {
@@ -70,6 +74,7 @@ function App() {
       toast.error(error.code)
     }
   }
+  // ---------EDIT POST----------------
 
   const editPost = async (e, postId) => {
     e.preventDefault()
@@ -89,27 +94,84 @@ function App() {
       toast.error(error.code)
     }
   }
-  // --------Addbooks-------
+  // --------Addbooks--------------
+
   const addBook = async e => {
     e.preventDefault()
     try {
       const form = e.target
+
+      const image = form.elements.image.files[0]
+      const imageRef = firebase.storage().ref("images").child(`${image.lastModified}-${image.name}`)
+      await imageRef.put(image)
+      const imageUrl = await imageRef.getDownloadURL()
       const bookBody = {
         title: form.elements.title.value,
         description: form.elements.description.value,
-        image: form.elements.image.value,
+        image: imageUrl,
         author: form.elements.author.value,
       }
-      await firebase.database().ref("/books").push(bookBody)
+      await firebase.database().ref("books").push(bookBody)
       toast.success("book added")
       getBooks()
-      navigate("/Books")
+      navigate("/book")
+    } catch (error) {
+      toast.error(error.code)
+    }
+  }
+  // -----------Delete Book----------------------
+
+  const deleteBook = async bookId => {
+    try {
+      await firebase.database().ref(`books/${bookId}`).remove()
+      toast.success("book deleted")
+      getBooks()
     } catch (error) {
       toast.error(error.code)
     }
   }
 
-  const store = { posts, addPost, deletePost, editPost, addBook, books }
+  // -------------edit book-------------
+  const editBook = async (e, book) => {
+    e.preventDefault()
+    try {
+      const form = e.target
+      const image = form.elements.image.files[0]
+      console.log(image)
+      let imageUrl
+      if (image) {
+        const imageRef = firebase.storage().ref("images").child(`${image.lastModified}-${image.name}`)
+        await imageRef.put(image)
+        imageUrl = await imageRef.getDownloadURL()
+      } else {
+        imageUrl = book.image
+      }
+
+      const bookBody = {
+        title: form.elements.title.value,
+        description: form.elements.description.value,
+        image: imageUrl,
+        author: form.elements.author.value,
+      }
+      console.log(bookBody)
+      await firebase.database().ref(`books/${book.id}`).update(bookBody)
+      toast.success("bookis updated")
+      getBooks()
+    } catch (error) {
+      toast.error(error.code)
+    }
+  }
+  // ----------------
+  const store = {
+    posts,
+    addPost,
+    deletePost,
+    editPost,
+    books,
+    addBook,
+    deleteBook,
+    editBook,
+  }
 
   return (
     <PostsContext.Provider value={store}>
@@ -118,11 +180,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Posts />} />
         <Route path="/add-post" element={<AddPost />} />
-        <Route path="/Books" element={<Books />} />
+        <Route path="/book" element={<Books />} />
         <Route path="/add-book" element={<AddBook />} />
       </Routes>
     </PostsContext.Provider>
-
   )
 }
 
