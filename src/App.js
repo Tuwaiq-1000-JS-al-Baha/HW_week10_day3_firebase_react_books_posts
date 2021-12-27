@@ -62,13 +62,17 @@ function App() {
   }
   const addBook = async e => {
     e.preventDefault()
+
     try {
       const form = e.target
-
+      const image = form.elements.image.files[0]
+      const imageRef = firebase.storage().ref("images").child(`${image.lastModified}-${image.name}`)
+      await imageRef.put(image)
+      const imageUrl = await imageRef.getDownloadURL()
       const bookBody = {
         title: form.elements.title.value,
         body: form.elements.body.value,
-        image: form.elements.image.value,
+        image: imageUrl,
         owner: form.elements.owner.value,
       }
 
@@ -81,11 +85,52 @@ function App() {
       toast.error(error.message)
     }
   }
+
+  const editBook = async (e, book) => {
+    e.preventDefault()
+
+    try {
+      const form = e.target
+      const image = form.elements.image.files[0]
+      let imageUrl
+      if (image) {
+        const imageRef = firebase.storage().ref("images").child(`${image.lastModified}-${image.name}`)
+
+        await imageRef.put(image)
+        imageUrl = await imageRef.getDownloadURL()
+      } else {
+        imageUrl = book.image
+      }
+
+      const bookBody = {
+        title: form.elements.title.value,
+        body: form.elements.body.value,
+        image: imageUrl,
+        owner: form.elements.owner.value,
+      }
+      console.log(bookBody)
+      await firebase.database().ref(`books/${book.id}`).update(bookBody)
+      toast.success("book is updated")
+      getBooks()
+    } catch (error) {
+      toast.error(error.code)
+    }
+  }
   const deletePost = async postId => {
     try {
       await firebase.database().ref(`posts/${postId}`).remove()
       toast.success("post deleted")
       getPosts()
+    } catch (error) {
+      toast.error(error.code)
+    }
+  }
+
+  const deleteBook = async bookId => {
+    try {
+      await firebase.database().ref(`books/${bookId}`).remove()
+      toast.success("book deleted")
+      getBooks()
     } catch (error) {
       toast.error(error.code)
     }
@@ -110,7 +155,7 @@ function App() {
     }
   }
 
-  const store = { posts, addPost, deletePost, editPost, books, addBook }
+  const store = { posts, addPost, deletePost, editPost, books, addBook, editBook, deleteBook }
 
   return (
     <PostsContext.Provider value={store}>

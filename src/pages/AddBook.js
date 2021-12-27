@@ -29,7 +29,7 @@ function AddBook() {
               Image
             </Form.Label>
             <Col md="6">
-              <Form.Control type="url" name="image" required />
+              <Form.Control type="file" accept="image/jpeg, image/png" name="image" required />
             </Col>
           </Form.Group>
           <Form.Group as={Row} className="mb-3">
